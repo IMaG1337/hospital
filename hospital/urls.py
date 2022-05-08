@@ -14,8 +14,33 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+
+from mainapp import views
+
+doctor_records = views.RecordsDoctorModelViewSet.as_view(
+    {
+        "get": "retrieve",
+    }
+)
+
+patient_records = views.RecordsPatientModelViewSet.as_view(
+    {
+        "get": "retrieve",
+    }
+)
+
+create_record = views.RecordModelViewSet.as_view(
+    {
+        "post": "create",
+    }
+)
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
+    path("__debug__/", include("debug_toolbar.urls")),
+    path("doctor/<int:pk>/", doctor_records, name="doctor"),
+    path("patient/<int:pk>/", patient_records, name="patient"),
+    path("record/", create_record, name="record"),
 ]
