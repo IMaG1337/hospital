@@ -47,6 +47,6 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path("doctor/<int:pk>/", doctor_records, name="doctor"),
     path("patient/<int:pk>/", patient_records, name="patient"),
-    path("patient/<int:patient_pk>/doctor/<int:doctor_pk>", all_past_records_patient, name="patient"),
+    path("patient/<int:patient_pk>/doctor/<int:doctor_pk>", all_past_records_patient, name="patient_records"),
     path("record/", create_record, name="record"),
 ]

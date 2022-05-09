@@ -5,8 +5,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from .models import Record
-from .serializers import RecordModelSerializer
+from .models import Doctor, Patient, Record
+from .serializers import DoctorModelSerializer, PatientModelSerializer, RecordModelSerializer
 
 
 class RecordsDoctorModelViewSet(ModelViewSet):
@@ -33,6 +33,16 @@ class RecordsDoctorModelViewSet(ModelViewSet):
         for i in queryset:
             content[i["datetime"].strftime("%A")].append(i)
         return Response(content)
+
+
+class DoctorModelViewSet(ModelViewSet):
+    queryset = Doctor.objects.all()
+    serializer_class = DoctorModelSerializer
+
+
+class PatientModelViewSet(ModelViewSet):
+    queryset = Patient.objects.all()
+    serializer_class = PatientModelSerializer
 
 
 class RecordModelViewSet(ModelViewSet):
