@@ -63,3 +63,30 @@ class RecordsPatientModelViewSet(ModelViewSet):
                 content["Past"].append(i)
             content["Future"].append(i)
         return Response(content)
+
+
+class AllPastPatientRecordsModelViewSet(ModelViewSet):
+    queryset = Record.objects.all()
+    serializer_class = RecordModelSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        now = timezone.now()
+        patient_pk = self.kwargs["patient_pk"]
+        doctor_pk = self.kwargs["doctor_pk"]
+        queryset = (
+            self.get_queryset()
+            .filter(patient_UID=patient_pk, doctor_UID=doctor_pk, datetime__lt=now)
+            .values("pk", "doctor_UID", "patient_UID", "datetime")
+        )
+        content = {
+            "Monday": [],
+            "Tuesday": [],
+            "Wednesday": [],
+            "Thursday": [],
+            "Friday": [],
+            "Saturday": [],
+            "Sunday": [],
+        }
+        for i in queryset:
+            content[i["datetime"].strftime("%A")].append(i)
+        return Response(content)

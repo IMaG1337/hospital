@@ -36,11 +36,17 @@ create_record = views.RecordModelViewSet.as_view(
     }
 )
 
+all_past_records_patient = views.AllPastPatientRecordsModelViewSet.as_view(
+    {
+        "get": "retrieve",
+    }
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
     path("doctor/<int:pk>/", doctor_records, name="doctor"),
     path("patient/<int:pk>/", patient_records, name="patient"),
+    path("patient/<int:patient_pk>/doctor/<int:doctor_pk>", all_past_records_patient, name="patient"),
     path("record/", create_record, name="record"),
 ]
