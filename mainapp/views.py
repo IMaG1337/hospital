@@ -5,8 +5,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from .models import Doctor, Patient, Record
-from .serializers import DoctorModelSerializer, PatientModelSerializer, RecordModelSerializer
+from .models import Record
+from .serializers import RecordModelSerializer
 
 
 class RecordsDoctorModelViewSet(ModelViewSet):
