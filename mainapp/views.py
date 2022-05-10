@@ -35,16 +35,6 @@ class RecordsDoctorModelViewSet(ModelViewSet):
         return Response(content)
 
 
-class DoctorModelViewSet(ModelViewSet):
-    queryset = Doctor.objects.all()
-    serializer_class = DoctorModelSerializer
-
-
-class PatientModelViewSet(ModelViewSet):
-    queryset = Patient.objects.all()
-    serializer_class = PatientModelSerializer
-
-
 class RecordModelViewSet(ModelViewSet):
     queryset = Record.objects.all()
     serializer_class = RecordModelSerializer
